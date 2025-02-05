@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // 基础路径配置（根据实际项目结构调整）
-// const basePath = path.resolve(__dirname, '../'); // 假设脚本在 test 目录
+// const basePath = path.resolve(__dirname); // 假设脚本在 test 目录
 const basePath = 'G:/前端学习/简历项目/埋点合作项目';
 
 const services = {
