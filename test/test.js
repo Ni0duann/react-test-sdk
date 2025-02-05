@@ -15,7 +15,7 @@ const services = {
     influx: {
         name: 'InfluxDB',
         cmd: process.platform === 'win32' ? '.\\influxd.exe' : './influxd',
-        cwd: path.join(basePath, '../influx'), // 调整路径指向 influx 目录
+        cwd: path.join(basePath, 'node', 'node_modules','influx'), // 调整路径指向 influx 目录
         readyPattern: /msg="Welcome to InfluxDB"/ 
     },
     test: {
@@ -100,6 +100,7 @@ function startService(service) {
 
 async function main() {
     try {
+        console.log('basePath', basePath)
         // 第一步：启动 InfluxDB 并等待就绪
         console.log('🚦 正在启动 InfluxDB...');
         const influxProcess = await startServiceWithReadyCheck(services.influx);
