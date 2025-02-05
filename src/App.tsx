@@ -93,7 +93,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
-            alert("页面加载时已经监控");
+            // alert("页面加载时已经监控");
             navigate('/White')
           }}
         >
