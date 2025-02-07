@@ -130,10 +130,26 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
-            alert("页面加载时已经监控");
+            navigate('/Page1') ;
           }}
         >
-          点击事件
+          点击事件1
+        </button>
+        <button
+          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
+          onClick={() => {
+            navigate('/Page2') ;
+          }}
+        >
+          点击事件2
+        </button>
+        <button
+          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
+          onClick={() => {
+            navigate('/Page3') ;
+          }}
+        >
+          点击事件3
         </button>
       </div>
     </div>
