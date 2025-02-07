@@ -15,7 +15,7 @@ const services = {
     influx: {
         name: 'InfluxDB',
         cmd: process.platform === 'win32' ? '.\\influxd.exe' : './influxd',
-        cwd: path.join(basePath, 'node', 'node_modules','influx'), // 调整路径指向 influx 目录
+        cwd: path.join(basePath, 'monitor-node', 'influx'), // 调整路径指向 influx 目录
         readyPattern: /msg="Welcome to InfluxDB"/ 
     },
     test: {
@@ -38,8 +38,8 @@ const services = {
     node: {
         name: 'Node Server',
         cmd: 'node',
-        args: ['server.js'],
-        cwd: path.join(basePath, 'node'),
+        args: ['index.js'],
+        cwd: path.join(basePath, 'monitor-node','src',),
         readyPattern: /Server is running/, // 根据实际输出调整
         url: 'http://localhost:3001' // 假设的默认端口，根据实际修改
     }

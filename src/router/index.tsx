@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DEMOPAGE from '../pages/demoPage.tsx'
 import White from "../pages/whiteScreenPage/whiteScreen.tsx";
-import {Page1,Page2,Page3} from '../pages/clickPage/page1.tsx'
+import {Page1,Page2,Page3} from '../pages/clickPage/clickPages.tsx'
 
 const router = createBrowserRouter([
     {
