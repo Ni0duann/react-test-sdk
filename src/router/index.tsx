@@ -1,12 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import APP from '../App.tsx'
-import White from "../whiteScreen.tsx";
+import DEMOPAGE from '../pages/demoPage.tsx'
+import White from "../pages/whiteScreenPage/whiteScreen.tsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <APP />,
-    
+        element: <DEMOPAGE />,
 
     },
     {
