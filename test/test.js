@@ -15,7 +15,7 @@ const services = {
     influx: {
         name: 'InfluxDB',
         cmd: process.platform === 'win32' ? '.\\influxd.exe' : './influxd',
-        cwd: path.join(basePath, 'monitor-node', 'influx'), // 调整路径指向 influx 目录
+        cwd: path.join(basePath, 'influx'), // 调整路径指向 influx 目录
         readyPattern: /msg="Welcome to InfluxDB"/ 
     },
     test: {
