@@ -1,3 +1,7 @@
+import { useNavigate } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid';
+import { UAParser } from 'ua-parser-js';
+
 // 扩展全局 Window 接口
 declare global {
   interface Window {
@@ -6,10 +10,35 @@ declare global {
     };
   }
 }
-import { useNavigate } from 'react-router-dom'
+
+
+// 在组件外生成并存储UUID
+let uuid = localStorage.getItem('uuid');
+if (!uuid) {
+  uuid = uuidv4();
+  localStorage.setItem('uuid', uuid);
+}
 
 function App() {
   const navigate = useNavigate()
+
+  const sendPageView = (path: string) => {
+    const userAgent = new UAParser(navigator.userAgent);
+    const data = {
+      page_path: path,
+      browser: userAgent.getBrowser().name,
+      os: userAgent.getOS().name,
+      device_type: userAgent.getDevice().type || 'desktop',
+      timestamp: new Date().toISOString(),
+    };
+
+    fetch('http://localhost:5501/api/page-view', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).catch(console.error);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center space-y-8 p-8 bg-gray-100 min-h-screen">
       <h1 className="text-4xl font-bold underline text-gray-800">前端异常</h1>
@@ -130,6 +159,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
+            sendPageView('/Page1');
             navigate('/Page1') ;
           }}
         >
@@ -138,6 +168,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
+    
             navigate('/Page2') ;
           }}
         >
@@ -146,6 +177,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
+        
             navigate('/Page3') ;
           }}
         >
