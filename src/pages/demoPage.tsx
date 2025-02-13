@@ -14,6 +14,12 @@ declare global {
   }
 }
 
+const pagePaths = [
+  "http://localhost:5173/Page1",
+  "http://localhost:5173/Page2",
+  "http://localhost:5173/Page3"
+];
+
 // 在组件外生成并存储UUID
 let uuid = localStorage.getItem('uuid');
 if (!uuid) {
@@ -28,12 +34,12 @@ function App() {
   const location = useLocation();
   const [entryTime, setEntryTime] = useState<number | null>(null);
 
-  const sendPvuv = (path: string) => {
+  const sendPvuv = (page_path: string) => {
     const userAgent = new UAParser(navigator.userAgent);
 
     // 构建页面浏览数据:获取用户基本信息，并传入path
     const data = {
-      page_path: path,
+      page_path: page_path,
       browser: userAgent.getBrowser().name,
       os: userAgent.getOS().name,
       device_type: userAgent.getDevice().type || 'desktop',
@@ -80,7 +86,7 @@ function App() {
   // 将用户进入某个页面的时间发送到数据库
   const sendDurationData = async (pagePath: string, duration: number) => {
     try {
-      await fetch('http://localhost:5501/api/report-duration', {
+      await fetch('http://localhost:5500/api/pushDuration', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -241,7 +247,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
-            sendPvuv('1');
+            sendPvuv(pagePaths[0]);
             navigate('/Page1');
           }}
         >
@@ -250,7 +256,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
-            sendPvuv('2');
+            sendPvuv(pagePaths[1]);
             navigate('/Page2');
           }}
         >
@@ -259,7 +265,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
-            sendPvuv('3');
+            sendPvuv(pagePaths[2]);
             navigate('/Page3');
           }}
         >
