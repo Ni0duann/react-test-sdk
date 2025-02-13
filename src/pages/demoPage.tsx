@@ -89,10 +89,10 @@ function App() {
     };
   }, [location.pathname, navigationType, entryTime]);
 
-  // 将用户进入某个页面的时间发送到数据库
+  //发送停留时长数据到数据库 ✅ 等待修改
   // const sendDurationData = async (pagePath: string, duration: number) => {
   //   try {
-  //     await fetch('http://localhost:5500/api/pushDuration', {
+  //     await fetch('http://localhost:5501/api/report-duration', {
   //       method: 'POST',
   //       headers: {
   //         'Content-Type': 'application/json'
@@ -105,33 +105,7 @@ function App() {
   //   } catch (error) {
   //     console.error('发送停留时长数据失败:', error);
   //   }
-  // };
-
-  // // 监控路由跳转，收集用户浏览页面次数发送到数据库，更新 PV 和 UV
-  // useEffect(() => {
-  //   console.log('Navigation Type:', navigationType);
-  //   console.log('Location Pathname:', location.pathname);
-  //   // 处理首次加载
-  //   if (!entryTime) {
-  //     const path = location.pathname;
-  //     const eventId = path.split('/').pop();
-  //     console.log('epath ', path);
-  //     console.log('eventId', eventId);
-  //     if (eventId) {
-  //       updatePvUv(eventId);
-  //     }
-  //     setEntryTime(Date.now());
-  //   }
-  //   if (navigationType === 'PUSH' || navigationType === 'REPLACE') {
-  //     const path = location.pathname;
-  //     // 提取页面标识，例如 /Page1 提取出 1
-  //     const eventId = path.split('/').pop();
-  //     console.log('eventId', eventId)
-  //     if (eventId) {
-  //       updatePvUv(eventId);
-  //     }
-  //   }
-  // }, [navigationType, location.pathname]);
+  // };;
 
   return (
     <div className="flex flex-col items-center justify-center space-y-8 p-8 bg-gray-100 min-h-screen">

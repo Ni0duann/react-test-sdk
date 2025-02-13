@@ -24,7 +24,7 @@ const services = {
         args: ['run', 'dev'],
         cwd: path.join(basePath, 'react-test-sdk'),
         readyPattern: /Compiled successfully/, // 根据实际输出调整
-        url: 'http://localhost:3003' // 假设的默认端口，根据实际修改
+        // url: 'http://localhost:3003' // 假设的默认端口，根据实际修改
     },
     web: {
         name: 'Web Dashboard',
@@ -32,7 +32,7 @@ const services = {
         args: ['run', 'dev'],
         cwd: path.join(basePath, 'monitor-web'),
         readyPattern: /Compiled successfully/, // 根据实际输出调整
-        url: 'http://localhost:3002' // 假设的默认端口，根据实际修改
+        // url: 'http://localhost:3002' // 假设的默认端口，根据实际修改
 
     },
     node: {
@@ -41,7 +41,7 @@ const services = {
         args: ['index.js'],
         cwd: path.join(basePath, 'monitor-node','src',),
         readyPattern: /Server is running/, // 根据实际输出调整
-        url: 'http://localhost:3001' // 假设的默认端口，根据实际修改
+        // url: 'http://localhost:3001' // 假设的默认端口，根据实际修改
     }
 };
 
