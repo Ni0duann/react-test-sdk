@@ -6,9 +6,9 @@ import { RouterProvider } from 'react-router-dom'
 
 import { Monitor } from "../dist/index";
 
-// 初始化监控并配置上报地址
+// 初始化监控并配置性能数据上报地址
 const monitor = new Monitor({
-    reportUrl: 'http://127.0.0.1:5501/api/report',
+    reportUrl: 'http://localhost:5500/api/push_pref',
     delay: 3000 // 等待3秒确保性能数据稳定
 });
 
