@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { UAParser } from 'ua-parser-js';
 
+import { pushFlowData, pushDuration } from '../api';
 
 // 扩展全局 Window 接口
 declare global {
@@ -27,9 +28,10 @@ function App() {
   const location = useLocation();
   const [entryTime, setEntryTime] = useState<number | null>(null);
 
-  const sendPageView = (path: string) => {
+  const sendPvuv = (path: string) => {
     const userAgent = new UAParser(navigator.userAgent);
 
+    // 构建页面浏览数据:获取用户基本信息，并传入path
     const data = {
       page_path: path,
       browser: userAgent.getBrowser().name,
@@ -38,24 +40,24 @@ function App() {
       timestamp: new Date().toISOString(),
     };
 
-    fetch('http://localhost:5501/api/page-view', {
+    fetch('http://localhost:5500/api/push_flowData', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     }).catch(console.error);
   };
 
-  //更新用户点击页面次数发送到数据库
-  const updatePvUv = async (eventId: string) => {
-    try {
-      await fetch(`http://localhost:5501/api/update-pv-uv/${eventId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-    } catch (error) {
-      console.error('更新 pv/uv 数据失败:', error);
-    }
-  };
+  // //更新用户点击页面次数发送到数据库
+  // const updatePvUv = async (eventId: string) => {
+  //   try {
+  //     await fetch(`http://localhost:5501/api/update-pv-uv/${eventId}`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //     });
+  //   } catch (error) {
+  //     console.error('更新 pv/uv 数据失败:', error);
+  //   }
+  // };
 
   // 记录用户进入某个页面的时间
   useEffect(() => {
@@ -239,7 +241,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
-            updatePvUv('1');
+            sendPvuv('1');
             navigate('/Page1');
           }}
         >
@@ -248,7 +250,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
-            updatePvUv('2');
+            sendPvuv('2');
             navigate('/Page2');
           }}
         >
@@ -257,7 +259,7 @@ function App() {
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out shadow-md"
           onClick={() => {
-            updatePvUv('3');
+            sendPvuv('3');
             navigate('/Page3');
           }}
         >
