@@ -22,6 +22,7 @@ if (!uuid) {
 
 function App() {
   const navigate = useNavigate()
+  
   const navigationType = useNavigationType();
   const location = useLocation();
   const [entryTime, setEntryTime] = useState<number | null>(null);
@@ -58,16 +59,21 @@ function App() {
 
   // 记录用户进入某个页面的时间
   useEffect(() => {
-    setEntryTime(Date.now());
-    // 组件卸载时计算停留时长并发送到服务端
+    // 转入逻辑：每次页面加载时记录时间
+    const entryTime = Date.now();
+    setEntryTime(entryTime);
+
+    // 转出逻辑：组件卸载时计算停留时间
     return () => {
-      if (entryTime) {
+      // 仅在 PUSH 或 REPLACE 导航类型下计算停留时间
+      if (entryTime && (navigationType === 'PUSH' || navigationType === 'REPLACE')) {
         const exitTime = Date.now();
         const duration = exitTime - entryTime;
+        console.log('duration', duration);
         sendDurationData(location.pathname, duration);
       }
     };
-  }, [location.pathname, entryTime]);
+  }, [location.pathname, navigationType, entryTime]);
 
   // 将用户进入某个页面的时间发送到数据库
   const sendDurationData = async (pagePath: string, duration: number) => {
