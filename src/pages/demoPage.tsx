@@ -14,10 +14,16 @@ declare global {
   }
 }
 
+// const pagePaths = [
+//   "http://localhost:5173/page1",
+//   "http://localhost:5173/page2",
+//   "http://localhost:5173/page3"
+// ];
+
 const pagePaths = [
-  "http://localhost:5173/page1",
-  "http://localhost:5173/page2",
-  "http://localhost:5173/page3"
+  "page1",
+  "page2",
+  "page3"
 ];
 
 // 在组件外生成并存储UUID
