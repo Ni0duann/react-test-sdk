@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { UAParser } from 'ua-parser-js';
 
-import { pushFlowData, pushDuration } from '../api';
+// import { pushFlowData, pushDuration } from '../api';
 
 // 扩展全局 Window 接口
 declare global {
@@ -15,9 +15,9 @@ declare global {
 }
 
 const pagePaths = [
-  "http://localhost:5173/Page1",
-  "http://localhost:5173/Page2",
-  "http://localhost:5173/Page3"
+  "http://localhost:5173/page1",
+  "http://localhost:5173/page2",
+  "http://localhost:5173/page3"
 ];
 
 // 在组件外生成并存储UUID
@@ -34,12 +34,12 @@ function App() {
   const location = useLocation();
   const [entryTime, setEntryTime] = useState<number | null>(null);
 
-  const sendPvuv = (page_path: string) => {
+  const sendPvuv = (pagePath: string) => {
     const userAgent = new UAParser(navigator.userAgent);
 
     // 构建页面浏览数据:获取用户基本信息，并传入path
     const data = {
-      page_path: page_path,
+      pagePath: pagePath,
       browser: userAgent.getBrowser().name,
       os: userAgent.getOS().name,
       device_type: userAgent.getDevice().type || 'desktop',
@@ -78,28 +78,28 @@ function App() {
         const exitTime = Date.now();
         const duration = exitTime - entryTime;
         console.log('duration', duration);
-        sendDurationData(location.pathname, duration);
+        // sendDurationData(location.pathname, duration);
       }
     };
   }, [location.pathname, navigationType, entryTime]);
 
   // 将用户进入某个页面的时间发送到数据库
-  const sendDurationData = async (pagePath: string, duration: number) => {
-    try {
-      await fetch('http://localhost:5500/api/pushDuration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          pagePath,
-          duration
-        })
-      });
-    } catch (error) {
-      console.error('发送停留时长数据失败:', error);
-    }
-  };
+  // const sendDurationData = async (pagePath: string, duration: number) => {
+  //   try {
+  //     await fetch('http://localhost:5500/api/pushDuration', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         pagePath,
+  //         duration
+  //       })
+  //     });
+  //   } catch (error) {
+  //     console.error('发送停留时长数据失败:', error);
+  //   }
+  // };
 
   // // 监控路由跳转，收集用户浏览页面次数发送到数据库，更新 PV 和 UV
   // useEffect(() => {
